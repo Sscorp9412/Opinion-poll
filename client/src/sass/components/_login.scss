@@ -1,0 +1,70 @@
+.login-box {
+   position: fixed;
+   width: 100%;
+   height: 100vh;
+   top: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.3);
+   z-index: 2;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.login-form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   background-color: var(--color-light-1);
+   min-width: 36rem;
+   min-height: 42rem;
+   border-radius: 1rem;
+   position: relative;
+
+   &__input {
+      font-family: inherit;
+      color: inherit;
+      font-size: 2.5rem;
+      padding: 0.5rem 2rem;
+      border: none;
+      border-radius: 0.4rem;
+      background-color: var(--color-light-2);
+   }
+
+   &__input::placeholder {
+      text-transform: capitalize;
+   }
+
+   &__button {
+      background: none;
+      border: 0.2rem solid var(--primary-color);
+      font-size: 2.5rem;
+      padding: 0.8rem 3.5rem;
+      border-radius: 6rem;
+      cursor: pointer;
+      transition: all 0.4s;
+   }
+   &__button:hover {
+      background: var(--primary-color);
+   }
+
+   &__button:active {
+      transform: translateY(0.8rem);
+   }
+
+   &__input:focus,
+   &__button:focus {
+      outline: none;
+   }
+}
+.login-form > h3 {
+   font-size: 4.5rem;
+   text-transform: capitalize;
+   margin-bottom: 5rem;
+}
+
+.login-form > input,
+.login-form > button {
+   margin: 0.5rem;
+}

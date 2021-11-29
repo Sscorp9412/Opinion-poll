@@ -1,0 +1,41 @@
+@media screen and (max-width: 1200px) {
+    #root {
+       width: 65%;
+    }
+ }
+ 
+ @media screen and (max-width: 960px) {
+    html {
+       font-size: 40%;
+    }
+    #root {
+       margin-top: 4rem;
+    }
+ 
+    .header {
+       flex-direction: column-reverse;
+    }
+ }
+ 
+ @media screen and (max-width: 768px) {
+    #root {
+       width: 100%;
+       height: calc(100vh - 17rem);
+       margin-top: 17rem;
+    }
+ 
+    .settings {
+       top: 15rem;
+       width: 100%;
+       flex-direction: column;
+       align-items: center;
+       justify-content: space-between;
+    }
+ 
+    .content .search {
+       margin-bottom: 1rem;
+       width: 90%;
+       margin-right: 3.5rem;
+    }
+ }
+ 

@@ -1,0 +1,21 @@
+*,
+*:after,
+*:before {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   /* box-sizing: inherit; */
+}
+
+html {
+   font-size: 62.5%;
+}
+
+#root {
+   width: 50%;
+   min-height: calc(100vh - 8rem);
+   margin: 0 auto;
+   margin-top: 8rem;
+   padding: 1rem;
+   background-color: var(--color-light-3);
+}
