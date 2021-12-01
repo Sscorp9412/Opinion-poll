@@ -1,7 +1,14 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Icon from "../../components/Icons";
 
-const Issue = ({ hash, title, content, likes = 0, dislikes = 0, response }) => {
+const Issue = ({ hash, issue }) => {
+
+    // useEffect
+    useEffect(() => {
+        axios.get(`http://localhost:4001/api/polls/view/${issue._id}`)
+    }) 
+    const response = "";
    const formatLikeclassName = () => {
       const plainStyle = "issue__response";
       return response === "like" ? `${plainStyle} active` : `${plainStyle}`;
@@ -21,16 +28,16 @@ const Issue = ({ hash, title, content, likes = 0, dislikes = 0, response }) => {
          <div className="issue__header">
             <h3 className="issue__title">
                <span className="issue__title--hash">#{hash} </span>
-               <span className="issue__title--text">{title}</span>
+               <span className="issue__title--text">{issue.title}</span>
             </h3>
             <button className="issue__edit">
                <Icon iconName="pencil" styleName={"issue__edit-icon"} />
             </button>
          </div>
          <div className="issue__body">
-            <p className="issue__content">{content}</p>
+            <p className="issue__content">{issue.content}</p>
             <form action="#" className="issue__response-box">
-               <span className="issue__response-count">{likes}</span>
+               <span className="issue__response-count">{0}</span>
                <button className={likeclassName}>
                   <Icon
                      iconName="thumbs-up"
@@ -38,7 +45,7 @@ const Issue = ({ hash, title, content, likes = 0, dislikes = 0, response }) => {
                   />
                   <span className="issue__response-text">Like</span>
                </button>
-               <span className="issue__response-count">{dislikes}</span>
+               <span className="issue__response-count">{0}</span>
                <button className={dislikeclassName}>
                   <Icon
                      iconName="thumbs-down"

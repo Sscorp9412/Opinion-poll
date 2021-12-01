@@ -44,8 +44,13 @@ exports.add = (req, res) => {
             opinions: []
         })
     
-        polls.save().then(() => {
-            res.send("Issue Posted Successfully");
+        polls.save().then(async() => {
+            try {
+                const issues = await Issue.find();
+                res.send({issues: issues});
+            } catch(error) {
+                res.send({issues: []})
+            }
         }).catch((error) => {
             res.status(400).send("Polls cannot be created");
         })

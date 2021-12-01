@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Icon from "../../components/Icons";
 import axios from "axios";
-import AuthContext from "../../utilities/authContext";
 
 const Signup = (props) => {
-   const { handleAuth } = useContext(AuthContext);
    const [credentials, setCredetials] = useState({
       firstName: "",
       lastName: "",
@@ -43,29 +41,28 @@ const Signup = (props) => {
          formData.append(each, credentials[each]);
       }
       axios
-         .post("http://localhost:4001/api/auth/login", formData)
+         .post("http://localhost:4001/api/users/add", formData)
          .then((response) => {
             const output = response.data;
+            console.log(output);
             switch (response.status) {
                case 200:
-                  localStorage.setItem("accessToken", output.token);
-                  localStorage.setItem("userData", JSON.stringify(output.user));
                   handleClearField();
-                  showNotification("Login Successfully");
-                  handleAuth();
-                  props.handleLoginPopup();
+                //   showNotification("Registered Successfully");
+                  props.handleSignupPopup();
                   break;
                default:
-                  showNotification("Error! Try Again");
+                  showNotification("Err! Try Again");
             }
          })
          .catch((error) => {
+             console.log(error)
             showNotification("Error! Try Again");
          });
    };
    return (
       <div className="signup-box">
-         <form action="#" className="signup-form">
+         <form action="#" onSubmit={handleSubmit} className="signup-form">
             <button
                className="close__button"
                onClick={(e) => props.handleSignupPopup(e)}
@@ -77,26 +74,41 @@ const Signup = (props) => {
                type="text"
                placeholder="First Name"
                className="signup-form__input"
+               name="firstName"
+               value={credentials.firstName}
+               onChange={handleChange}
             />
             <input
                type="text"
                placeholder="Last name"
                className="signup-form__input"
+               name="lastName"
+               value={credentials.lastName}
+               onChange={handleChange}
             />
             <input
                type="text"
                placeholder="Username"
                className="signup-form__input"
+               name="username"
+               value={credentials.username}
+               onChange={handleChange}
             />
             <input
                type="text"
                placeholder="Email"
                className="signup-form__input"
+               name="email"
+               value={credentials.email}
+               onChange={handleChange}
             />
             <input
                type="text"
                placeholder="password"
                className="signup-form__input"
+               name="password"
+               value={credentials.password}
+               onChange={handleChange}
             />
             <button className="signup-form__button">sign up</button>
             {notifier.isVisible ? (
