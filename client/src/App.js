@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import AuthContext from "./utilities/authContext";
 
 import Header from "./pages/Header";
@@ -8,7 +9,10 @@ import "./sass/main.scss";
 
 function App() {
    const isUserLoggedIn = () => {
-      if (localStorage.getItem("userData") && localStorage.getItem("accessToken"))
+      if (
+         localStorage.getItem("userData") &&
+         localStorage.getItem("accessToken")
+      )
          return true;
       else return false;
    };
@@ -25,20 +29,22 @@ function App() {
    };
    return (
       <AuthContext.Provider value={{ isAuth: isAuth, handleAuth: handleAuth }}>
-         <Header
-            handleLoginPopup={handleLoginPopup}
-            handleSignupPopup={handleSignupPopup}
-            handleCreateIssuePopup={handleCreateIssuePopup}
-         />
-         <Main
-            isLoginPopupOpen={isLoginPopupOpen}
-            isSignupPopupOpen={isSignupPopupOpen}
-            isCreateIssuePopupOpen={isCreateIssuePopupOpen}
-            handleLoginPopup={handleLoginPopup}
-            handleSignupPopup={handleSignupPopup}
-            handleCreateIssuePopup={handleCreateIssuePopup}
-         />
-         <Footer />
+         <BrowserRouter>
+            <Header
+               handleLoginPopup={handleLoginPopup}
+               handleSignupPopup={handleSignupPopup}
+               handleCreateIssuePopup={handleCreateIssuePopup}
+            />
+            <Main
+               isLoginPopupOpen={isLoginPopupOpen}
+               isSignupPopupOpen={isSignupPopupOpen}
+               isCreateIssuePopupOpen={isCreateIssuePopupOpen}
+               handleLoginPopup={handleLoginPopup}
+               handleSignupPopup={handleSignupPopup}
+               handleCreateIssuePopup={handleCreateIssuePopup}
+            />
+            <Footer />
+         </BrowserRouter>
       </AuthContext.Provider>
    );
 }

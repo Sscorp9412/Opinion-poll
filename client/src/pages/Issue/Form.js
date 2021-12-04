@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import store from "../../redux/store";
+import { Link, Navigate } from "react-router-dom";
 import Icon from "../../components/Icons";
 import axios from "axios";
 
 const IssueForm = (props) => {
+   const [isIssueCreated, setIssueCreated] = useState(false);
    const [credentials, setCredetials] = useState({
       title: "",
       content: ""
@@ -46,9 +49,12 @@ const IssueForm = (props) => {
             console.log(output);
             switch (response.status) {
                case 200:
-                  props.handleIssues(output.issues);
+                  store.dispatch({
+                     type: "ADD_ISSUE",
+                     payloads: { issue: credentials }
+                  });
                   handleClearField();
-                  props.handleCreateIssuePopup();
+                  setIssueCreated(true);
                   break;
                default:
                   showNotification("Err! Try Again");
@@ -59,41 +65,44 @@ const IssueForm = (props) => {
             showNotification("Error! Try Again");
          });
    };
-   return (
-      <div className="add-issue-box">
-         <form action="#" onSubmit={handleSubmit} className="add-issue-form">
-            <button
-               className="close__button"
-               onClick={(e) => props.handleCreateIssuePopup(e)}
-            >
-               <Icon iconName="cross" styleName="close__icon" />
-            </button>
-            <h3>Create Issue...</h3>
-            <input
-               type="text"
-               placeholder="Title"
-               className="signup-form__input"
-               name="title"
-               value={credentials.title}
-               onChange={handleChange}
-            />
-            <textarea
-               placeholder="Content"
-               className="signup-form__input"
-               rows="6"
-               name="content"
-               value={credentials.content}
-               onChange={handleChange}
-            ></textarea>
-            <button className="signup-form__button">Create Issue</button>
-            {notifier.isVisible ? (
-               <span className="notification">{notifier.text}</span>
-            ) : (
-               <></>
-            )}
-         </form>
-      </div>
-   );
+   if (isIssueCreated) {
+      return <Navigate to="/" />;
+   } else {
+      return (
+         <div className="add-issue-box">
+            <form action="#" onSubmit={handleSubmit} className="add-issue-form">
+               <Link to="/" className="router-link">
+                  <button type="button" className="close__button">
+                     <Icon iconName="cross" styleName="close__icon" />
+                  </button>
+               </Link>
+               <h3>Create Issue...</h3>
+               <input
+                  type="text"
+                  placeholder="Title"
+                  className="signup-form__input"
+                  name="title"
+                  value={credentials.title}
+                  onChange={handleChange}
+               />
+               <textarea
+                  placeholder="Content"
+                  className="signup-form__input"
+                  rows="6"
+                  name="content"
+                  value={credentials.content}
+                  onChange={handleChange}
+               ></textarea>
+               <button className="signup-form__button">Create Issue</button>
+               {notifier.isVisible ? (
+                  <span className="notification">{notifier.text}</span>
+               ) : (
+                  <></>
+               )}
+            </form>
+         </div>
+      );
+   }
 };
 
 export default IssueForm;

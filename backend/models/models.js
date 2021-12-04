@@ -5,6 +5,3 @@ const schemas = require("./schemas");
 exports.User = new mongoose.model("User", schemas.userSchema);
 // ** issues model
 exports.Issue = new mongoose.model("Issue", schemas.issueSchema);
-//  ** polls model
-exports.Poll = new mongoose.model("Poll", schemas.pollSchema);
-

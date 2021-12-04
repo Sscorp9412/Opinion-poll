@@ -23,19 +23,7 @@ exports.issueSchema = new mongoose.Schema(
         {
             title: String,
             content: String,
-            creator: String
-        }
-    ],
-    {
-        timestamps: { createdAt: true, updatedAt: true}
-    }
-)
-
-// ** polls schema
-exports.pollSchema = new mongoose.Schema(
-    [
-        {
-            issueId: String,
+            creator: String,
             opinions: [
                 {
                     userId: String,

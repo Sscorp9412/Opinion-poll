@@ -1,30 +1,9 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../utilities/authContext";
-import localStorageClearData from "../utilities/handleLogout";
 
 const Header = (props) => {
-   const { isAuth, handleAuth } = useContext(AuthContext);
-   const handleLoginButton = (e) => {
-      e.preventDefault();
-      props.handleLoginPopup();
-   };
-
-   const handleSignupButton = (e) => {
-      e.preventDefault();
-      props.handleSignupPopup();
-   };
-
-   const handleCreateIssueButton = (e) => {
-      e.preventDefault();
-      props.handleCreateIssuePopup();
-   };
-
-   const handleLogout = (e) => {
-      e.preventDefault();
-      localStorageClearData();
-      handleAuth();
-   };
-
+   const { isAuth } = useContext(AuthContext);
    return (
       <header className="header">
          <div className="title-box">
@@ -36,33 +15,33 @@ const Header = (props) => {
          <form action="#" className="user-auth">
             {isAuth ? (
                <>
-                  <button
-                     className="user-auth__button"
-                     onClick={(e) => handleCreateIssueButton(e)}
-                  >
-                     Create Issue
-                  </button>
-                  <button
-                     className="user-auth__button"
-                     onClick={(e) => handleLogout(e)}
-                  >
-                     Logout
-                  </button>
+                  <Link to="/create-issue" className="router-link">
+                     <button type="button" className="user-auth__button">
+                        Create Issue
+                     </button>
+                  </Link>
+                  <Link to="/logout" className="router-link">
+                     <button
+                        type="button"
+                        className="user-auth__button"
+                        // onClick={(e) => handleLogout(e)}
+                     >
+                        Logout
+                     </button>
+                  </Link>
                </>
             ) : (
                <>
-                  <button
-                     className="user-auth__button"
-                     onClick={(e) => handleLoginButton(e)}
-                  >
-                     Login
-                  </button>
-                  <button
-                     className="user-auth__button"
-                     onClick={(e) => handleSignupButton(e)}
-                  >
-                     Signup
-                  </button>
+                  <Link to="/login" className="router-link">
+                     <button type="button" className="user-auth__button">
+                        Login
+                     </button>
+                  </Link>
+                  <Link to="signup" className="router-link">
+                     <button type="button" className="user-auth__button">
+                        Signup
+                     </button>
+                  </Link>
                </>
             )}
          </form>

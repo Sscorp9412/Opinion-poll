@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import store from "../redux/store";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 import Search from "./partials/Search";
 import Filter from "./partials/Filters";
-import Issue from "./Issue/Issue";
+import Issues from "./Issue/Issues";
 
 // Login popup
 import Login from "./auth/Login";
@@ -10,16 +12,17 @@ import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 // createIssue popup
 import CreateIssue from "./Issue/Form";
+// create Logout
+import Logout from "./auth/Logout";
 
 const Main = (props) => {
    const [issues, setIssues] = useState([]);
 
    const handleIssues = (updatedIssues) => {
-       setIssues(updatedIssues);
-   }
+      setIssues(updatedIssues);
+   };
 
-   //   use effect
-   useEffect(() => {
+   const handleGetRequest = () => {
       axios
          .get("http://localhost:4001/api/issues/view", {
             headers: {
@@ -30,13 +33,26 @@ const Main = (props) => {
          .then((response) => {
             switch (response.status) {
                case 200:
-                  setIssues(response.data.issues);
+                  store.dispatch({
+                     type: "ADD_ISSUES",
+                     payloads: { issues: response.data.issues }
+                  });
                   break;
                default:
                   console.log("issues did not loaded");
             }
          });
+   };
+
+   //   use effect
+   useEffect(() => {
+      handleGetRequest();
+      // eslint-disable-next-line
    }, []);
+
+   store.subscribe(() => {
+      handleIssues(store.getState().issues);
+   });
 
    return (
       <>
@@ -46,37 +62,26 @@ const Main = (props) => {
                <Filter />
             </div>
             <div className="issue-box">
-               <ul className="issue-list">
-                  {issues.map((issue, index) => {
-                     return <Issue key={index} hash={index + 1} issue={issue} />;
-                  })}
-               </ul>
+                <Issues issues={issues}/>
             </div>
          </main>
-
-         {/* Login Box */}
-         {props.isLoginPopupOpen ? (
-            <Login handleLoginPopup={props.handleLoginPopup} />
-         ) : (
-            <></>
-         )}
-
-         {/* Sign up Box */}
-         {props.isSignupPopupOpen ? (
-            <Signup handleSignupPopup={props.handleSignupPopup} />
-         ) : (
-            <></>
-         )}
-
-         {/* {Create Issue Box} */}
-         {props.isCreateIssuePopupOpen ? (
-            <CreateIssue
-               handleCreateIssuePopup={props.handleCreateIssuePopup}
-               handleIssues = {handleIssues}
-            />
-         ) : (
-            <></>
-         )}
+         <Routes>
+            <Route path="/login" element={<Login />}>
+               <></>
+            </Route>
+            <Route path="/signup" element={<Signup />}>
+               <></>
+            </Route>
+            <Route path="/create-issue" element={<CreateIssue />}>
+               <></>
+            </Route>
+            <Route path="/logout" element={<Logout />}>
+               <></>
+            </Route>
+            <Route path="/" element={<></>}>
+               <></>
+            </Route>
+         </Routes>
       </>
    );
 };

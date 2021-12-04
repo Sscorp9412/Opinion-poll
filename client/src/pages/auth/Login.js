@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
 import Icon from "../../components/Icons";
 import axios from "axios";
 import AuthContext from "../../utilities/authContext";
+import store from "../../redux/store";
 
 const Login = (props) => {
-   const { handleAuth } = useContext(AuthContext);
+   const { isAuth, handleAuth } = useContext(AuthContext);
    const [credentials, setCredetials] = useState({ email: "", password: "" });
-   const [notifier, setNotifier] = useState({
-      isVisible: false,
-      text: ""
-   });
+//    const [notifier, setNotifier] = useState({
+//       isVisible: false,
+//       text: ""
+//    });
 
    const handleChange = (e) => {
       const { name, value } = e.target;
@@ -22,12 +24,12 @@ const Login = (props) => {
       }
    };
 
-   const showNotification = (message) => {
-      setNotifier({ isVisible: true, text: message });
-      setTimeout(() => {
-         setNotifier({ ...notifier, isVisible: false });
-      }, 2000);
-   };
+//    const showNotification = (message) => {
+//       setNotifier({ isVisible: true, text: message });
+//       setTimeout(() => {
+//          setNotifier({ ...notifier, isVisible: false });
+//       }, 2000);
+//    };
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -44,54 +46,57 @@ const Login = (props) => {
                   localStorage.setItem("accessToken", output.token);
                   localStorage.setItem("userData", JSON.stringify(output.user));
                   handleClearField();
-                  showNotification("Login Successfully");
+                //   showNotification("Login Successfully");
+                  store.dispatch({ type: "REFRESH_STATE" });
                   handleAuth();
-                  props.handleLoginPopup();
                   break;
                default:
-                  showNotification("Error! Try Again");
+                //   showNotification("Error! Try Again");
             }
          })
          .catch((error) => {
-            showNotification("Error! Try Again");
+            // showNotification("Error! Try Again");
          });
    };
 
-   return (
-      <div className="login-box">
-         <form action="" onSubmit={handleSubmit} className="login-form">
-            <button
-               className="close__button"
-               onClick={(e) => props.handleLoginPopup(e)}
-            >
-               <Icon iconName="cross" styleName="close__icon" />
-            </button>
-            <h3>Log in Here...</h3>
-            <input
-               type="email"
-               placeholder="email"
-               name="email"
-               className="login-form__input"
-               value={credentials.email}
-               onChange={handleChange}
-            />
-            <input
-               type="password"
-               placeholder="password"
-               name="password"
-               className="login-form__input"
-               value={credentials.password}
-               onChange={handleChange}
-            />
-            <button className="login-form__button">Login</button>
-            {notifier.isVisible ? (
-               <span className="notification">{notifier.text}</span>
-            ) : (
-               <></>
-            )}
-         </form>
-      </div>
-   );
+   if (!isAuth) {
+      return (
+         <div className="login-box">
+            <form action="" onSubmit={handleSubmit} className="login-form">
+               <button type="button" className="close__button">
+                  <Link to="/">
+                     <Icon iconName="cross" styleName="close__icon" />
+                  </Link>
+               </button>
+               <h3>Log in Here...</h3>
+               <input
+                  type="email"
+                  placeholder="email"
+                  name="email"
+                  className="login-form__input"
+                  value={credentials.email}
+                  onChange={handleChange}
+               />
+               <input
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                  className="login-form__input"
+                  value={credentials.password}
+                  onChange={handleChange}
+               />
+               <button className="login-form__button">Login</button>
+               {/* {notifier.isVisible ? (
+                  <span className="notification">{notifier.text}</span>
+               ) : (
+                  <></>
+               )} */}
+            </form>
+         </div>
+      );
+   } else {
+      return <Navigate to="/" />;
+   }
 };
 
 export default Login;
