@@ -46,12 +46,12 @@ const IssueForm = (props) => {
          .post("http://localhost:4001/api/issues/add", formData)
          .then((response) => {
             const output = response.data;
-            console.log(output);
+            // console.log(output);
             switch (response.status) {
                case 200:
                   store.dispatch({
                      type: "ADD_ISSUE",
-                     payloads: { issue: credentials }
+                     payloads: { issue: output.issue }
                   });
                   handleClearField();
                   setIssueCreated(true);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import store from "../redux/store";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
@@ -14,12 +14,19 @@ import Signup from "./auth/Signup";
 import CreateIssue from "./Issue/Form";
 // create Logout
 import Logout from "./auth/Logout";
+import AuthContext from "../utilities/authContext";
 
 const Main = (props) => {
    const [issues, setIssues] = useState([]);
+   const [issuesHistory, setIssuesHistory] = useState([]);
+   const { isAuth } = useContext(AuthContext);
 
    const handleIssues = (updatedIssues) => {
       setIssues(updatedIssues);
+   };
+
+   const handleIssuesHistory = (updatedIssues) => {
+      setIssuesHistory(updatedIssues);
    };
 
    const handleGetRequest = () => {
@@ -47,22 +54,36 @@ const Main = (props) => {
    //   use effect
    useEffect(() => {
       handleGetRequest();
+
       // eslint-disable-next-line
    }, []);
 
    store.subscribe(() => {
       handleIssues(store.getState().issues);
+      handleIssuesHistory(store.getState().issues);
    });
 
    return (
       <>
          <main className="content">
             <div className="settings">
-               <Search />
-               <Filter />
+               <Search
+                  issues={issues}
+                  issuesHistory={issuesHistory}
+                  handleIssues={handleIssues}
+               />
+               <Filter
+                  issues={issues}
+                  issuesHistory={issuesHistory}
+                  handleIssues={handleIssues}
+               />
             </div>
             <div className="issue-box">
-                <Issues issues={issues}/>
+               {isAuth ? (
+                  <Issues issues={issues} />
+               ) : (
+                  <Issues issues={issues} />
+               )}
             </div>
          </main>
          <Routes>

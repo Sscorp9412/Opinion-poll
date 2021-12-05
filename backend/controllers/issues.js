@@ -41,7 +41,8 @@ exports.add = (req, res) => {
    issue
       .save()
       .then((data) => {
-         res.send("polls are created");
+         console.log(data);
+         res.send({ issue: data });
       })
       .catch((error) => {
          res.status(404).send("Unable to posted Issue, Try Again!");

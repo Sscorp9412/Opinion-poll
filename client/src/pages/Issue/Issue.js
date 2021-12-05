@@ -12,24 +12,32 @@ const Issue = ({ hash, issue }) => {
       likes: 0,
       dislikes: 0
    });
-   var myresponse = "";
 
    useEffect(() => {
       if (isAuth) {
-         const userId = JSON.parse(localStorage.getItem("userData"))._id;
-         const userResponse = issue.opinions.filter(
-            (each) => each.userId === userId
-         );
-         if (userResponse.length > 0) {
-            //   console.log("userResponse.set", userResponse)
-            setResponses({
-               ...responses,
-               userResponse: userResponse[0].opinion
-            });
+         if (issue && issue.opinions && issue.opinions.length > 0) {
+            const userId = JSON.parse(localStorage.getItem("userData"))._id;
+            console.log(userId);
+            const userResponse = issue.opinions.filter(
+               (each) => each.userId === userId
+            );
+            if (userResponse.length > 0) {
+               //   console.log("userResponse.set", userResponse)
+               setResponses({
+                  ...responses,
+                  userResponse: userResponse[0].opinion
+               });
+            }
          }
+      } else {
+        setResponses({
+            ...responses,
+            userResponse: ""
+         });
+
       }
       // eslint-disable-next-line
-   }, []);
+   }, [isAuth]);
 
    //handle response
    const handleResponse = (response) => {
@@ -104,34 +112,41 @@ const Issue = ({ hash, issue }) => {
 
    const formatLikeclassName = () => {
       const plainStyle = "issue__response";
-      return responses.userResponse === "like"
-         ? `${plainStyle} active`
+      return isAuth
+         ? responses.userResponse === "like"
+            ? `${plainStyle} active`
+            : `${plainStyle}`
          : `${plainStyle}`;
    };
 
    // format dislike classNameName
    const formatDislikeclassName = () => {
       const plainStyle = "issue__response";
-      return responses.userResponse === "dislike"
-         ? `${plainStyle} active`
+      return isAuth
+         ? responses.userResponse === "dislike"
+            ? `${plainStyle} active`
+            : `${plainStyle}`
          : `${plainStyle}`;
    };
 
    // handle Like Count
    const handleOpinionCount = (response) => {
-      if (response === "like") {
-         const count = issue.opinions.filter((each) => each.opinion === "like");
-         return count.length;
+      if (issue && issue.opinions && issue.opinions.length > 0) {
+         if (response === "like") {
+            const count = issue.opinions.filter(
+               (each) => each.opinion === "like"
+            );
+            return count.length;
+         } else {
+            const count = issue.opinions.filter(
+               (each) => each.opinion === "dislike"
+            );
+            return count.length;
+         }
       } else {
-         const count = issue.opinions.filter(
-            (each) => each.opinion === "dislike"
-         );
-         return count.length;
+         return 0;
       }
    };
-
-   //    const likeclassName = formatLikeclassName();
-   const dislikeclassName = formatDislikeclassName();
 
    return (
       <li className="issue">
