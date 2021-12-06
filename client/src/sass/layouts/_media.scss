@@ -20,7 +20,7 @@
  @media screen and (max-width: 768px) {
     #root {
        width: 100%;
-       height: calc(100vh - 17rem);
+       min-height: calc(100vh - 17rem);
        margin-top: 17rem;
     }
  

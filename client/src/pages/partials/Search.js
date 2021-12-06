@@ -4,7 +4,7 @@ import Icon from "../../components/Icons";
 const Search = (props) => {
    const [search, setSearch] = useState("");
    const handleSearchEvent = (e) => {
-      const val = e.target.value;
+      const val = e.target.value.toLowerCase();
       setSearch(val);
       if (val.length > 0) {
          const updatedIssues = props.issuesHistory.filter(

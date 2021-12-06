@@ -28,7 +28,7 @@ exports.userlogin = (req, res) => {
                      user: { _id, firstName, lastName, username, email }
                   });
                } else {
-                  return res.json({
+                  return res.status(400).json({
                      stat: "failure",
                      error: "Invalid Email and Password"
                   });
