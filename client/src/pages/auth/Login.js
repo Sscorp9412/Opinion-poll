@@ -38,7 +38,7 @@ const Login = (props) => {
          formData.append(each, credentials[each]);
       }
       axios
-         .post("http://localhost:4001/api/auth/login", formData)
+         .post(`${process.env.REACT_APP_PROXY}/api/auth/login`, formData)
          .then((response) => {
             const output = response.data;
             switch (response.status) {

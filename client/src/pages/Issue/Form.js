@@ -43,7 +43,7 @@ const IssueForm = (props) => {
       const user = JSON.parse(localStorage.getItem("userData"));
       formData.append("creator", user._id);
       axios
-         .post("http://localhost:4001/api/issues/add", formData)
+         .post(`${process.env.REACT_APP_PROXY}/api/issues/add`, formData)
          .then((response) => {
             const output = response.data;
             // console.log(output);

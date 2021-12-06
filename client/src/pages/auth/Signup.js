@@ -43,7 +43,7 @@ const Signup = (props) => {
          formData.append(each, credentials[each]);
       }
       axios
-         .post("http://localhost:4001/api/users/add", formData)
+         .post(`${process.env.REACT_APP_PROXY}/api/users/add`, formData)
          .then((response) => {
             const output = response.data;
             console.log(output);

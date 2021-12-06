@@ -31,7 +31,7 @@ const Main = (props) => {
 
    const handleGetRequest = () => {
       axios
-         .get("http://localhost:4001/api/issues/view", {
+         .get(`${process.env.REACT_APP_PROXY}/api/issues/view`, {
             headers: {
                "Content-Type": "application/json",
                Authorization: "Bearer " + localStorage.getItem("accessToken")

@@ -52,7 +52,7 @@ const Issue = ({ hash, issue }) => {
       }
       axios
          .put(
-            `http://localhost:4001/api/issues/update/opinion/${issue._id}`,
+            `${process.env.REACT_APP_PROXY}/api/issues/update/opinion/${issue._id}`,
             formData,
             {
                headers: {
