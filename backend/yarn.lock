@@ -93,6 +93,13 @@
   "resolved" "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz"
   "version" "1.5.1"
 
+"basic-auth@~2.0.1":
+  "integrity" "sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg=="
+  "resolved" "https://registry.npmjs.org/basic-auth/-/basic-auth-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "safe-buffer" "5.1.2"
+
 "bcrypt@^5.0.1":
   "integrity" "sha512-9BTgmrhZM2t1bNuDtrtIMVSmmxZBrJ71n8Wg+YgdjHuIWYF7SjjmCPZFB+/5i/o/PIeRpwVJR3P+NrpIItUjqw=="
   "resolved" "https://registry.npmjs.org/bcrypt/-/bcrypt-5.0.1.tgz"
@@ -791,6 +798,17 @@
     "regexp-clone" "1.0.0"
     "sift" "13.5.2"
     "sliced" "1.0.1"
+
+"morgan@^1.10.0":
+  "integrity" "sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ=="
+  "resolved" "https://registry.npmjs.org/morgan/-/morgan-1.10.0.tgz"
+  "version" "1.10.0"
+  dependencies:
+    "basic-auth" "~2.0.1"
+    "debug" "2.6.9"
+    "depd" "~2.0.0"
+    "on-finished" "~2.3.0"
+    "on-headers" "~1.0.2"
 
 "mpath@0.8.4":
   "integrity" "sha512-DTxNZomBcTWlrMW76jy1wvV37X/cNNxPW1y2Jzd4DZkAaC5ZGsm8bfGfNOthcDuRJujXLqiuS6o3Tpy0JEoh7g=="
