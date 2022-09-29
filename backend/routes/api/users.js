@@ -18,13 +18,13 @@ app.get("/view/:id", controller.viewOne);
  *  @description API for adding user
  *  @method POST /add
  */
-app.post("/add", multer.none(), controller.add);
+app.post("/add", controller.add);
 
 /**
  *  @description API for updating user
  *  @method PUT /upate
  */
-app.put("/update/:id", multer.none(), controller.update);
+app.put("/update/:id", controller.update);
 
 /**
  *  @description API for deleting user

@@ -18,14 +18,16 @@ var upload = multer();
 
 // ** adding static folder
 app.use(express.static(path.join(__dirname, "assets")));
-// ** use multer
+// ** adding JSON reciever as body
+app.use(express.json());
+// ** use cors
 app.use(cors());
 // ** adding routes
 app.use("/api", require("./routes/index"));
 // ** adding sessions
 app.use(
    sessions({
-      name: "shadebook_admin_cookie",
+      name: "yor_admin_cookie",
       secret: SESSIONS_SECRET,
       resave: false,
       saveUninitialized: false
@@ -40,6 +42,8 @@ mongoose
    })
    .then(() => {
       console.log("Database Connected Successfully");
+   }).catch((error) => {
+      throw new Error(error);
    });
 
 const port = PORT || 4001;

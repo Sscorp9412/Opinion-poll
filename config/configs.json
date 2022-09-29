@@ -1,0 +1,15 @@
+{
+  "frontend": "/client",
+  "backend": "/backend",
+  "currentFolder": "/config",
+  "bashFileName": "packages.sh",
+  "CMD": {
+      "GO_DIR" : "cd",
+      "BACK_DIR": "cd ..",
+      "AND": "&&",
+      "NEW_LINE": "\n"
+  },
+  "NPM": {
+      "install" : "npm install"
+  }
+}
