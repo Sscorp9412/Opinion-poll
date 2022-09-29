@@ -6,7 +6,7 @@ const multer = require('../../middlewares/parser');
  *  @description API for login
  *  @method POST /view
  */
- app.post("/login", multer.none(), controller.userlogin);
+ app.post("/login", controller.userlogin);
 
  /**
   *  @description API for logout

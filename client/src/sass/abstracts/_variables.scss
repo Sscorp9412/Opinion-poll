@@ -6,10 +6,16 @@
     --color-dark-1: #747474;
     --color-dark-2: #949494;
     --color-dark-3: #ababab;
+    --color-dark-4: #484848;
+    --color-dark-x: #000;
  
     --color-light-1: #e8e8e8;
-    --color-light-2: #dedede;
-    --color-light-3: #ebebeb;
+    --color-light-2: #f3f3f3;
+    --color-light-3: #fff;
+    --color-light-x: #fff;
+
+    --bd-lg: 0.1rem solid #e8e8e8;
  
     --dark-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --bs-sm: 0 1px 2px hsla(0,0%,0%,0.05),0 1px 4px hsla(0,0%,0%,0.05),0 2px 8px hsla(0,0%,0%,0.05);
 }

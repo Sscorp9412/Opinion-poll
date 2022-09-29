@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Issue from './Issue';
+import store from '../../redux/store';
 
-const Issues = ({issues}) => {
+const Issues = () => {
+   const [issues, setIssues] = useState([]);
+   store.subscribe(() => {
+      setIssues(store.getState().issues);
+   })
+   
    return (
       <ul className="issue-list">
          {issues.map((issue, index) => {

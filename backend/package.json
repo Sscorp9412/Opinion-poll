@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mongo:connect": "sudo systemctl start mongod"
+    "mongo:connect": "sudo systemctl start mongod",
+    "dev": "nodemon",
+    "start": "node server.js"
   },
   "keywords": [
     "react",

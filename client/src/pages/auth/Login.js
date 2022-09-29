@@ -33,12 +33,10 @@ const Login = (props) => {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      const formData = new FormData();
-      for (let each in credentials) {
-         formData.append(each, credentials[each]);
-      }
       axios
-         .post(`${process.env.REACT_APP_PROXY}/api/auth/login`, formData)
+         .post(`${process.env.REACT_APP_PROXY}/api/auth/login`, {
+            ...credentials
+         })
          .then((response) => {
             const output = response.data;
             switch (response.status) {

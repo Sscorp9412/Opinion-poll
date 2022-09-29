@@ -1,5 +1,6 @@
 const initialState = {
-   issues: []
+   issues: [],
+   backup: []
 };
 
 const reducers = (state = initialState, action) => {
@@ -26,6 +27,10 @@ const reducers = (state = initialState, action) => {
             (each) => each._id !== action.payloads.issue._id
          );
          return { ...state, issues: updatedIssues };
+      case "BACKUP_ISSUES":
+         return { ...state, backup: state.issues };
+      case "FILTER_ISSUES":
+         return { ...state, issues: action.payloads.issues };
       default:
          return state;
    }

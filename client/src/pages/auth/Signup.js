@@ -38,15 +38,11 @@ const Signup = (props) => {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      const formData = new FormData();
-      for (let each in credentials) {
-         formData.append(each, credentials[each]);
-      }
       axios
-         .post(`${process.env.REACT_APP_PROXY}/api/users/add`, formData)
+         .post(`${process.env.REACT_APP_PROXY}/api/users/add`, {
+            ...credentials
+         })
          .then((response) => {
-            const output = response.data;
-            console.log(output);
             switch (response.status) {
                case 200:
                   handleClearField();
